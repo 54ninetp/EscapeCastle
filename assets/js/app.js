@@ -533,6 +533,21 @@ function preloadImages(team){
             "assets/images/stage/exit.jpg"
         );
 
+        // Ending Artwork
+        imageList.push("assets/images/ending/ending-01-sealed-gate.png");
+        imageList.push("assets/images/ending/ending-02-seals-awaken.png");
+        imageList.push("assets/images/ending/ending-03-final-seal-breaks.png");
+        imageList.push("assets/images/ending/ending-04-beyond-the-castle.png");
+
+        // 七個圖騰
+        imageList.push("assets/images/totems/black-faced-spoonbill.png");
+        imageList.push("assets/images/totems/fiddler-crab.png");
+        imageList.push("assets/images/totems/mangrove.png");
+        imageList.push("assets/images/totems/mudskipper.png");
+        imageList.push("assets/images/totems/oyster.png");
+        imageList.push("assets/images/totems/salt-field.png");
+        imageList.push("assets/images/totems/wetland.png");
+
         let loaded = 0;
 
         function checkFinish(){
