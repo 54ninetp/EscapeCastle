@@ -176,11 +176,11 @@ function showModal() {
 
     totemModal.classList.remove("hidden");
 
-    requestAnimationFrame(() => {
+    setTimeout(() => {
 
         totemModal.classList.add("show");
 
-    });
+    }, 30);
 
 }
 
@@ -396,6 +396,8 @@ teamButtons.forEach(button => {
 
     button.addEventListener("click", () => {
 
+        localStorage.setItem("team", button.dataset.team);
+        
         showLoading();
 
         preloadImages(button.dataset.team).then(()=>{
@@ -475,27 +477,53 @@ function loadStageFromUrl(){
 
     const stage = parseInt(params.get("s"));
 
-    // 沒有 s，代表第一次進網站
     if(isNaN(stage)){
         return;
     }
 
-    // 從 localStorage 取得隊伍
     const savedTeam = localStorage.getItem("team");
 
-    // 沒有隊伍，代表不是正常遊戲流程
     if(!savedTeam){
         return;
     }
 
-    // 直接開始指定關卡
-    startGame(savedTeam, stage);
+    showLoading();
+
+    preloadImages(savedTeam).then(async()=>{
+
+        hideLoading();
+
+        if(stage === 8){
+
+             startGame(savedTeam,8);
+
+             return;
+
+        }
+
+        startGame(savedTeam, stage - 1);
+
+        await showTotem();
+
+        nextStage();
+
+    });
 
 }
 
 checkOrientation();
 
 console.log("準備讀網址");
+
+const urlParams = new URLSearchParams(location.search);
+
+if(urlParams.has("reset")){
+
+    localStorage.removeItem("team");
+
+    location.href = "index.html";
+
+}
 
 loadStageFromUrl();
 
