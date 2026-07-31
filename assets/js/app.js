@@ -376,12 +376,34 @@ teamButtons.forEach(button => {
 
 function checkOrientation(){
 
-    const warning =
-        document.getElementById("rotateWarning");
+    const warning = document.getElementById("rotateWarning");
+
+    const isTablet =
+        Math.min(window.innerWidth, window.innerHeight) >= 700;
+
+    if(!isTablet){
+
+        warning.style.display = "flex";
+
+        document.querySelector(".rotate-content h2").textContent =
+            "請使用平板進行遊戲";
+
+        document.querySelector(".rotate-content p").textContent =
+            "Escape Castle 為營隊平板專用遊戲";
+
+        return;
+
+    }
 
     if(window.innerHeight > window.innerWidth){
 
         warning.style.display = "flex";
+
+        document.querySelector(".rotate-content h2").textContent =
+            "請將平板旋轉為橫向";
+
+        document.querySelector(".rotate-content p").textContent =
+            "旋轉後即可開始冒險";
 
     }else{
 
@@ -390,11 +412,3 @@ function checkOrientation(){
     }
 
 }
-
-window.addEventListener("resize",checkOrientation);
-
-window.addEventListener("orientationchange",checkOrientation);
-
-alert("checkOrientation");
-
-checkOrientation();
