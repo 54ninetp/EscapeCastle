@@ -32,8 +32,25 @@ document.getElementById("totemDescription");
 const totemSlots = document.querySelectorAll(".totem");
 
 let currentTeam = 0;
+
+const savedTeam = localStorage.getItem("team");
+
+if(savedTeam){
+
+    currentTeam = savedTeam;
+
+}
+
 // 記錄目前關卡
 let currentStage = 1;
+
+/*==========================
+讀取網址關卡參數
+==========================*/
+
+const params = new URLSearchParams(window.location.search);
+
+const stageParam = parseInt(params.get("s"));
 
 const totems = [
 
@@ -356,6 +373,8 @@ teamButtons.forEach(button => {
         // 記錄目前隊伍
         currentTeam = button.dataset.team;
 
+        // 儲存隊伍
+        localStorage.setItem("team", currentTeam);
 
         // 更新遊戲畫面資訊
         updateGameScreen();
@@ -412,3 +431,31 @@ function checkOrientation(){
     }
 
 }
+
+/*====================================
+從網址載入指定關卡
+====================================*/
+
+function loadStageFromUrl(){
+
+    const params = new URLSearchParams(window.location.search);
+
+    const stage = parseInt(params.get("s"));
+
+    if(isNaN(stage)){
+        return;
+    }
+
+    currentStage = stage;
+
+    homePage.classList.add("hidden");
+    teamPage.classList.add("hidden");
+    gamePage.classList.remove("hidden");
+
+    updateGameScreen();
+
+}
+
+checkOrientation();
+
+loadStageFromUrl();
