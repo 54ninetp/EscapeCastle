@@ -395,4 +395,6 @@ window.addEventListener("resize",checkOrientation);
 
 window.addEventListener("orientationchange",checkOrientation);
 
+alert("checkOrientation");
+
 checkOrientation();
