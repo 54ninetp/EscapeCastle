@@ -369,3 +369,30 @@ teamButtons.forEach(button => {
     });
 
 });
+
+/*====================================
+裝置方向偵測
+====================================*/
+
+function checkOrientation(){
+
+    const warning =
+        document.getElementById("rotateWarning");
+
+    if(window.innerHeight > window.innerWidth){
+
+        warning.style.display = "flex";
+
+    }else{
+
+        warning.style.display = "none";
+
+    }
+
+}
+
+window.addEventListener("resize",checkOrientation);
+
+window.addEventListener("orientationchange",checkOrientation);
+
+checkOrientation();
