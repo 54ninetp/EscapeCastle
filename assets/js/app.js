@@ -17,6 +17,10 @@ const stageTitle = document.getElementById("stageTitle");
 const stagePhoto = document.getElementById("stagePhoto");
 const debugNextBtn = document.getElementById("debugNextBtn");
 
+const loadingScreen = document.getElementById("loadingScreen");
+const loadingText =
+document.getElementById("loadingText");
+
 const totemModal =
 document.getElementById("totemModal");
 
@@ -133,6 +137,28 @@ if (currentStage < 8) {
 function updateGameScreen() {
 
     updateGameInfo();
+
+}
+
+/*====================================
+開始遊戲
+====================================*/
+
+function startGame(team, stage){
+
+    currentTeam = team;
+
+    currentStage = stage;
+
+    localStorage.setItem("team", team);
+
+    // 先切換畫面
+    homePage.classList.add("hidden");
+    teamPage.classList.add("hidden");
+    gamePage.classList.remove("hidden");
+
+    // 最後更新畫面
+    updateGameScreen();
 
 }
 
@@ -370,20 +396,17 @@ teamButtons.forEach(button => {
 
     button.addEventListener("click", () => {
 
-        // 記錄目前隊伍
-        currentTeam = button.dataset.team;
+        showLoading();
 
-        // 儲存隊伍
-        localStorage.setItem("team", currentTeam);
+        preloadImages(button.dataset.team).then(()=>{
 
-        // 更新遊戲畫面資訊
-        updateGameScreen();
+            hideLoading();
 
-        // 畫面切換
-        teamPage.classList.add("hidden");
-        gamePage.classList.remove("hidden");
+            startGame(button.dataset.team,1);
 
-        console.log("目前隊伍：", currentTeam);
+        });
+
+        console.log("目前隊伍：", button.dataset.team);
 
     });
 
@@ -394,13 +417,25 @@ teamButtons.forEach(button => {
 ====================================*/
 
 function checkOrientation(){
+    console.log(navigator.userAgent);
+    console.log(window.innerWidth, window.innerHeight);
 
     const warning = document.getElementById("rotateWarning");
 
-    const isTablet =
-        Math.min(window.innerWidth, window.innerHeight) >= 700;
+    const isDesktop =
+        !/Android|iPhone|iPad|Mobile/i.test(navigator.userAgent);
 
-    if(!isTablet){
+    if(isDesktop){
+
+        warning.style.display = "none";
+        return;
+
+    }
+
+    // 後面保持不變……
+
+    // 手機（不是平板）
+    if(Math.min(window.innerWidth, window.innerHeight) < 700){
 
         warning.style.display = "flex";
 
@@ -414,6 +449,7 @@ function checkOrientation(){
 
     }
 
+    // 平板直向
     if(window.innerHeight > window.innerWidth){
 
         warning.style.display = "flex";
@@ -426,15 +462,12 @@ function checkOrientation(){
 
     }else{
 
+        // 平板橫向
         warning.style.display = "none";
 
     }
 
 }
-
-/*====================================
-從網址載入指定關卡
-====================================*/
 
 function loadStageFromUrl(){
 
@@ -442,20 +475,92 @@ function loadStageFromUrl(){
 
     const stage = parseInt(params.get("s"));
 
+    // 沒有 s，代表第一次進網站
     if(isNaN(stage)){
         return;
     }
 
-    currentStage = stage;
+    // 從 localStorage 取得隊伍
+    const savedTeam = localStorage.getItem("team");
 
-    homePage.classList.add("hidden");
-    teamPage.classList.add("hidden");
-    gamePage.classList.remove("hidden");
+    // 沒有隊伍，代表不是正常遊戲流程
+    if(!savedTeam){
+        return;
+    }
 
-    updateGameScreen();
+    // 直接開始指定關卡
+    startGame(savedTeam, stage);
 
 }
 
 checkOrientation();
 
+console.log("準備讀網址");
+
 loadStageFromUrl();
+
+console.log("網址讀取完成");
+
+function showLoading(){
+
+    loadingScreen.style.display = "flex";
+
+}
+
+function hideLoading(){
+
+    loadingScreen.style.display = "none";
+
+}
+
+function preloadImages(team){
+
+    return new Promise((resolve)=>{
+
+        const imageList = [];
+
+        // 本組第1~7關
+        for(let i=1;i<=7;i++){
+
+            imageList.push(
+                `assets/images/group${team}/${String(i).padStart(2,"0")}.jpg`
+            );
+
+        }
+
+        // 共用第8關
+        imageList.push(
+            "assets/images/stage/exit.jpg"
+        );
+
+        let loaded = 0;
+
+        function checkFinish(){
+
+            loaded++;
+
+            loadingText.textContent =
+                `正在載入圖片 ${loaded}/${imageList.length}`;
+
+            if(loaded === imageList.length){
+
+                resolve();
+
+            }
+
+        }
+
+        imageList.forEach(src=>{
+
+            const img = new Image();
+
+            img.onload = checkFinish;
+            img.onerror = checkFinish;
+
+            img.src = src;
+
+        });
+
+    });
+
+}
