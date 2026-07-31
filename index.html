@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Escape Castle－逃出魔王城</title>
+
+<link rel="stylesheet" href="assets/css/style.css">
+
+</head>
+
+<body>
+
+<div id="background"></div>
+
+<!-- 首頁 -->
+<section id="homePage">
+
+    <div class="logoBox">
+
+        <div class="logoIcon">🏰</div>
+
+        <h1>Escape Castle</h1>
+
+        <h2>逃出魔王城</h2>
+
+        <p class="subtitle">
+
+            蒐集七枚徽章，開啟城門逃離魔王城。
+
+        </p>
+
+    </div>
+
+    <div class="menuBox">
+
+        <button class="mainButton" id="startBtn">
+
+            開始冒險
+
+        </button>
+
+    </div>
+
+</section>
+
+<!-- 選隊 -->
+
+<section id="teamPage" class="hidden">
+
+    <h2>請選擇隊伍</h2>
+
+    <div class="teamGrid">
+
+        <button class="teamButton" data-team="1">第一組</button>
+
+        <button class="teamButton" data-team="2">第二組</button>
+
+        <button class="teamButton" data-team="3">第三組</button>
+
+        <button class="teamButton" data-team="4">第四組</button>
+
+    </div>
+
+</section>
+
+<!--====================================
+Escape Castle
+Version : V2.0.3
+gamePage
+=====================================-->
+
+<section id="gamePage" class="hidden">
+
+    <h2 id="teamTitle">第 1 組</h2>
+
+    <h3 id="stageTitle">第 1 / 8 關</h3>
+
+    <!-- Debug 工具列 -->
+<div id="debugPanel">
+
+    <button id="debugNextBtn">下一關（Debug）</button>
+
+</div>
+
+    <div class="photoArea">
+
+        <img
+            id="stagePhoto"
+            src="https://placehold.co/600x400?text=Stage+Photo"
+            alt="關卡照片">
+
+    </div>
+
+    <div class="totemArea">
+
+        <div class="totem"></div>
+        <div class="totem"></div>
+        <div class="totem"></div>
+        <div class="totem"></div>
+        <div class="totem"></div>
+        <div class="totem"></div>
+        <div class="totem"></div>
+
+    </div>
+
+    <button id="scanBtn">
+
+        掃描 QR Code
+
+    </button>
+
+</section>
+
+<!-- 圖騰取得視窗 -->
+<div id="totemModal" class="hidden">
+
+    <div class="totemModalContent">
+
+        <img
+            id="totemImage"
+            src=""
+            alt="圖騰">
+
+        <h2 id="totemName"></h2>
+
+        <p id="totemDescription"></p>
+
+    </div>
+
+</div>
+
+<script src="assets/js/app.js"></script>
+
+<div id="endingScene">
+
+    <img
+        id="endingImage"
+        src=""
+        alt="Ending Scene">
+
+    <div id="guardianGlow"></div>
+
+    <div id="flash"></div>
+    
+        <div id="endingText">
+
+    <h2>七大守護者的封印已經解除</h2>
+
+    <p>你們逃出了魔王城</p>
+
+    <p>慶祝吧，勇士們，這片大陸將回歸守護者的庇護。</p>
+
+    </div>
+
+</div>
+
+</body>
+
+</html>
