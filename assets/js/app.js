@@ -414,6 +414,15 @@ teamButtons.forEach(button => {
 
 });
 
+const scanBtn =
+document.getElementById("scanBtn");
+
+scanBtn.addEventListener("click",()=>{
+
+    alert("魔法之眼");
+
+});
+
 /*====================================
 裝置方向偵測
 ====================================*/

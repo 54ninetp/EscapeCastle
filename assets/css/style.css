@@ -318,11 +318,27 @@ position: absolute;
 
 #scanBtn{
 
-    padding:15px 35px;
+    position:fixed;
 
-    font-size:22px;
+    left:25px;
+
+    top:50%;
+
+    transform:translateY(-50%);
+
+    width:72px;
+
+    height:72px;
+
+    border:none;
+
+    border-radius:50%;
+
+    font-size:34px;
 
     cursor:pointer;
+
+    z-index:9999;
 
 }
 
