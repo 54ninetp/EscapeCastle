@@ -444,7 +444,7 @@ scanBtn.addEventListener("click", async()=>{
 
             (decodedText)=>{
 
-                console.log("掃到：", decodedText);
+                alert(decodedText);
 
             }
 
