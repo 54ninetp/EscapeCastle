@@ -417,9 +417,63 @@ teamButtons.forEach(button => {
 const scanBtn =
 document.getElementById("scanBtn");
 
-scanBtn.addEventListener("click",()=>{
+const scannerModal =
+document.getElementById("scannerModal");
 
-    alert("魔法之眼");
+const closeScanner =
+document.getElementById("closeScanner");
+
+let html5QrCode = null;
+
+scanBtn.addEventListener("click", async()=>{
+
+    scannerModal.classList.remove("hidden");
+
+    html5QrCode = new Html5Qrcode("qr-reader");
+
+    try{
+
+        await html5QrCode.start(
+
+            { facingMode: "environment" },
+
+            {
+                fps:10,
+                qrbox:{ width:250, height:250 }
+            },
+
+            (decodedText)=>{
+
+                console.log("掃到：", decodedText);
+
+            }
+
+        );
+
+    }catch(err){
+
+        console.error(err);
+
+        alert("無法開啟相機");
+
+        scannerModal.classList.add("hidden");
+
+    }
+
+});
+
+closeScanner.addEventListener("click", async()=>{
+
+    if(html5QrCode){
+
+        await html5QrCode.stop();
+        await html5QrCode.clear();
+
+        html5QrCode = null;
+
+    }
+
+    scannerModal.classList.add("hidden");
 
 });
 
