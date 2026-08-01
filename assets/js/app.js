@@ -473,7 +473,7 @@ scanBtn.addEventListener("click", async()=>{
 
                     scannerModal.classList.add("hidden");
 
-                    await playEnding();
+                    await completeStage();
 
                     return;
 
@@ -500,17 +500,6 @@ scanBtn.addEventListener("click", async()=>{
                     hasScanned = false;
 
                 return;
-
-                }
-
-                // 必須掃目前關卡的下一張
-                if(stage !== currentStage + 1){
-
-                    alert("這不是目前關卡的 QR！");
-
-                    hasScanned = false;
-
-                    return;
 
                 }
 
