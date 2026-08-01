@@ -445,7 +445,7 @@ scanBtn.addEventListener("click", async()=>{
                 qrbox:{ width:250, height:250 }
             },
 
-            (decodedText, decodedResult)=>{
+            async (decodedText)=>{
 
                 if(hasScanned) return;
 
