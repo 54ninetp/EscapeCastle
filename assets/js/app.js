@@ -451,25 +451,75 @@ scanBtn.addEventListener("click", async()=>{
 
                 hasScanned = true;
 
-                const stage = Number(decodedText.trim());
+                const code = decodedText.trim().toUpperCase();
+
+                // ---------- 最後結尾 ----------
+                if(code === "END"){
+
+                    if(currentStage !== 8){
+
+                        alert("還不能使用這個 QR！");
+
+                        hasScanned = false;
+
+                        return;
+
+                    }
+
+                    await html5QrCode.stop();
+                    await html5QrCode.clear();
+
+                    html5QrCode = null;
+
+                    scannerModal.classList.add("hidden");
+
+                    await playEnding();
+
+                    return;
+
+                }
+
+                // ---------- 一般關卡 ----------
+                const stage = Number(code);
 
                 if(isNaN(stage)){
 
                     alert("QR Code 內容錯誤");
+
+                    hasScanned = false;
+
+                    return;
+
+                }
+
+                // 必須掃目前關卡的下一張
+                if(stage !== currentStage + 1){
+
+                    alert("這不是目前關卡的 QR！");
+
+                    hasScanned = false;
+
+                return;
+
+                }
+
+                // 必須掃目前關卡的下一張
+                if(stage !== currentStage + 1){
+
+                    alert("這不是目前關卡的 QR！");
+
+                    hasScanned = false;
 
                     return;
 
                 }
 
                 await html5QrCode.stop();
-
                 await html5QrCode.clear();
 
                 html5QrCode = null;
 
                 scannerModal.classList.add("hidden");
-
-                currentStage = stage - 1;
 
                 await completeStage();
 
