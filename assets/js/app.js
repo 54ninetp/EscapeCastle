@@ -447,13 +447,31 @@ scanBtn.addEventListener("click", async()=>{
 
             (decodedText, decodedResult)=>{
 
-                console.log("成功掃描");
+                if(hasScanned) return;
 
-                console.log(decodedText);
+                hasScanned = true;
 
-                console.log(decodedResult);
+                const stage = Number(decodedText.trim());
 
-                alert(decodedText);
+                if(isNaN(stage)){
+
+                    alert("QR Code 內容錯誤");
+
+                    return;
+
+                }
+
+                await html5QrCode.stop();
+
+                await html5QrCode.clear();
+
+                html5QrCode = null;
+
+                scannerModal.classList.add("hidden");
+
+                currentStage = stage - 1;
+
+                await completeStage();
 
             }
 
