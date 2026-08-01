@@ -224,17 +224,20 @@ gamePage
 
 #gamePage{
 
-position: absolute;
+    position:absolute;
 
     display:flex;
     flex-direction:column;
-    justify-content:center;
+
     align-items:center;
 
     width:100%;
     min-height:100vh;
 
-    gap:20px;
+    padding-top:28px;
+    padding-bottom:28px;
+
+    gap:18px;
 
 }
 
@@ -254,7 +257,7 @@ position: absolute;
 
 .photoArea{
 
-    width:600px;
+    width:min(600px,78vw);
 
 }
 
@@ -273,6 +276,10 @@ position: absolute;
     display:flex;
 
     gap:12px;
+
+    margin-top:4px;
+
+    margin-bottom:8px;
 
 }
 
@@ -320,7 +327,7 @@ position: absolute;
 
     position:fixed;
 
-    left:25px;
+    left:18px;
 
     top:50%;
 

@@ -497,9 +497,11 @@ scanBtn.addEventListener("click", async()=>{
 
                     alert("這不是目前關卡的 QR！");
 
+                    await new Promise(resolve => setTimeout(resolve,1000));
+
                     hasScanned = false;
 
-                return;
+                    return;
 
                 }
 
