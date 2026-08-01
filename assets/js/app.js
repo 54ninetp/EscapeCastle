@@ -442,7 +442,13 @@ scanBtn.addEventListener("click", async()=>{
                 qrbox:{ width:250, height:250 }
             },
 
-            (decodedText)=>{
+            (decodedText, decodedResult)=>{
+
+                console.log("成功掃描");
+
+                console.log(decodedText);
+
+                console.log(decodedResult);
 
                 alert(decodedText);
 
