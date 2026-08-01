@@ -424,9 +424,12 @@ const closeScanner =
 document.getElementById("closeScanner");
 
 let html5QrCode = null;
+let hasScanned = false;
 
 scanBtn.addEventListener("click", async()=>{
 
+    hasScanned = false;
+    
     scannerModal.classList.remove("hidden");
 
     html5QrCode = new Html5Qrcode("qr-reader");
