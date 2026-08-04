@@ -15,7 +15,6 @@ const gamePage = document.getElementById("gamePage");
 const teamTitle = document.getElementById("teamTitle");
 const stageTitle = document.getElementById("stageTitle");
 const stagePhoto = document.getElementById("stagePhoto");
-const debugNextBtn = document.getElementById("debugNextBtn");
 
 const loadingScreen = document.getElementById("loadingScreen");
 const loadingText =
@@ -375,13 +374,6 @@ async function playEnding(){
     endingText.style.opacity = 1;
 
 }
-
-// Debug 下一關
-debugNextBtn.addEventListener("click", () => {
-
-    completeStage();
-
-});
 
 // 開始冒險
 startBtn.addEventListener("click", () => {
